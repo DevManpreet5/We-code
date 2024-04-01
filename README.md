@@ -1,5 +1,7 @@
 # WeCode Collaboration Platform
 
+![Home Page](we-chat/public/images/wecode-home.png)
+
 WeCode is a real-time collaboration platform designed for coding enthusiasts to code together, participate in coding contests, and communicate seamlessly.
 
 ## Key Features
