@@ -8,7 +8,7 @@ function Signup() {
           <div className=" text-white  text-2xl font-semibold  text-center">
             Signup
           </div>
-          <div className="flex flex-col gap-1 px-5">
+          <div className="flex flex-col gap-2 px-5">
             <div className="w-full mt-7 text-gray-400  mb-[1.5px]">
               Username
             </div>
@@ -16,7 +16,7 @@ function Signup() {
               type="text"
               name="username"
               id=""
-              placeholder="Username"
+              placeholder="Devmanpreet5"
               className=" bg-transparent  px-2  border-solid border-gray-700 focus:border-teal-500 border-[0.7px] text-white focus:outline-none h-12 rounded-lg "
             ></input>
 
@@ -27,7 +27,7 @@ function Signup() {
               type="email"
               name="email"
               id=""
-              placeholder="Email Address"
+              placeholder="abcd@gmail.com"
               className=" bg-transparent  px-2  border-solid border-gray-700 focus:border-teal-500 border-[0.7px] text-white focus:outline-none h-12 rounded-lg "
             ></input>
 
@@ -37,7 +37,7 @@ function Signup() {
               required="true"
               name="pwd"
               id=""
-              placeholder="Enter Password"
+              placeholder="*********"
               className=" bg-transparent  px-2  border-solid border-gray-700 focus:border-teal-500 border-[0.7px] text-white focus:outline-none h-12 rounded-lg "
             ></input>
 

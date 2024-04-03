@@ -11,6 +11,7 @@ function Login() {
           <div className="w-full mt-7  text-gray-400  mb-2">Email address</div>
           <input
             type="email"
+            placeholder="test@gmail.com"
             className=" bg-transparent  px-2  border-solid border-gray-700 focus:border-teal-500 border-[0.7px] text-white focus:outline-none h-12 rounded-lg "
           ></input>
 
@@ -18,6 +19,7 @@ function Login() {
           <input
             type="password"
             required="true"
+            placeholder="*********"
             className=" bg-transparent  px-2  border-solid border-gray-700 focus:border-teal-500 border-[0.7px] text-white focus:outline-none h-12 rounded-lg "
           ></input>
 

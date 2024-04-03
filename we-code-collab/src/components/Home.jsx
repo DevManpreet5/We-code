@@ -1,7 +1,28 @@
 import "remixicon/fonts/remixicon.css";
+import { Fluid } from "@whatisjery/react-fluid-distortion";
+import { EffectComposer } from "@react-three/postprocessing";
+import { Canvas } from "@react-three/fiber";
+import Wave from "react-wavify";
+import { TypeAnimation } from "react-type-animation";
+
 function Home() {
   return (
-    <div className="h-screen w-screen flex flex-col  bg-gray-900   ">
+    <div className="h-screen w-screen flex flex-col  bg-gray-800   ">
+      <Canvas
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          height: "100vh",
+          width: "100vw",
+          background: "#000000",
+        }}
+      >
+        <EffectComposer>
+          <Fluid />
+        </EffectComposer>
+      </Canvas>
+
       <div className="h-32 flex pl-10 py-2 pr-24 w-screen justify-between max-md:pr-4 max-md:pl-4  ">
         <div className="max-md:hidden">
           <img
@@ -73,7 +94,7 @@ function Home() {
         </div>
         <div className="mt-[8vh] flex justify-center items-center gap-[3vw] flex-wrap">
           <a
-            href="#_"
+            href="/language"
             className="inline-flex items-center w-full px-5 py-3 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-blue-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-blue-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700"
           >
             Code with Friend
