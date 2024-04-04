@@ -2,10 +2,20 @@ import "remixicon/fonts/remixicon.css";
 import { Fluid } from "@whatisjery/react-fluid-distortion";
 import { EffectComposer } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
-import Wave from "react-wavify";
-import { TypeAnimation } from "react-type-animation";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
 
 function Home() {
+  let [decoded, setdecoded] = useState(null);
+  useEffect(() => {
+    let data = Cookies.get("user");
+    if (data) {
+      const decoded = jwtDecode(data);
+      setdecoded(decoded);
+    }
+  }, []);
+
   return (
     <div className="h-screen w-screen flex flex-col  bg-gray-800   ">
       <Canvas
@@ -32,54 +42,71 @@ function Home() {
         </div>
         <div className="flex justify-between text-white gap-[5vw] mt-3  h-[110%]    items-center ">
           <div className="max-md:hidden">
-            <a
-              href="/signup"
-              className="relative inline-flex items-center px-8 py-3 overflow-hidden text-md  text-white border-2 hover:border-white rounded-full hover:text-black group hover:bg-gray-50"
-            >
-              <span className="absolute left-0 block w-full h-0 transition-all bg-white opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
-              <span className="absolute right-0 flex items-center justify-start w-8 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
-                <svg
-                  className="w-3 h-5 ml-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  ></path>
-                </svg>
-              </span>
-              <span className="relative">Signup</span>
-            </a>
+            {!decoded && (
+              <a
+                href="/signup"
+                className="relative inline-flex items-center px-8 py-3 overflow-hidden text-md  text-white border-2 hover:border-white rounded-full hover:text-black group hover:bg-gray-50"
+              >
+                <span className="absolute left-0 block w-full h-0 transition-all bg-white opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                <span className="absolute right-0 flex items-center justify-start w-8 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
+                  <svg
+                    className="w-3 h-5 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    ></path>
+                  </svg>
+                </span>
+                <span className="relative">Signup</span>
+              </a>
+            )}
           </div>
-          <div className="max-md:hidden">
-            <a
-              href="login"
-              className="relative inline-flex items-center px-8 py-3 overflow-hidden text-md gap-3 font-medium text-white border-2 border-white rounded-full hover:text-black group hover:bg-gray-50"
+
+          {decoded && (
+            <button
+              className="text-white mt-9   px-10 relative left-1/2  -translate-x-1/2 -trasnlate-y-1/2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              onClick={() => {
+                Cookies.remove("user");
+                setdecoded(null);
+              }}
             >
-              <span className="absolute left-0 block w-full h-0 transition-all bg-white opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
-              <span className="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
-                <svg
-                  className="w-3 h-5 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M14 5l7 7m0 0l-7 7m7-7H3"
-                  ></path>
-                </svg>
-              </span>
-              <span className="relative">Login</span>
-            </a>
+              Logout
+            </button>
+          )}
+
+          <div className="max-md:hidden">
+            {!decoded && (
+              <a
+                href="login"
+                className="relative inline-flex items-center px-8 py-3 overflow-hidden text-md gap-3 font-medium text-white border-2 border-white rounded-full hover:text-black group hover:bg-gray-50"
+              >
+                <span className="absolute left-0 block w-full h-0 transition-all bg-white opacity-100 group-hover:h-full top-1/2 group-hover:top-0 duration-400 ease"></span>
+                <span className="absolute right-0 flex items-center justify-start w-10 h-10 duration-300 transform translate-x-full group-hover:translate-x-0 ease">
+                  <svg
+                    className="w-3 h-5 ml-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    ></path>
+                  </svg>
+                </span>
+                <span className="relative">Login</span>
+              </a>
+            )}
           </div>
           <i className="ri-menu-line  hidden max-md:block  max-md:absolute  right-12 text-4xl"></i>
         </div>

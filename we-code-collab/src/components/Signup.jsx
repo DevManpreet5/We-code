@@ -15,6 +15,7 @@ function Signup() {
               name="username"
               id=""
               placeholder="Manpreet"
+              required="true"
               className=" bg-transparent  px-2  border-solid border-gray-700 focus:border-teal-500 border-[0.7px] text-white focus:outline-none h-12 rounded-lg "
             ></input>
 
@@ -25,6 +26,7 @@ function Signup() {
               type="email"
               name="email"
               id=""
+              required="true"
               placeholder="abcd@gmail.com"
               className=" bg-transparent  px-2  border-solid border-gray-700 focus:border-teal-500 border-[0.7px] text-white focus:outline-none h-12 rounded-lg "
             ></input>

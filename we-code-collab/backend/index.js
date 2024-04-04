@@ -3,6 +3,9 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
+import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
+const JWT_SECRET = "Manpreet123";
 
 const server = express();
 server.use(
@@ -32,8 +35,8 @@ mongoose
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
-    unique: true,
+    required: false,
+    unique: false,
   },
   email: {
     type: String,
@@ -48,24 +51,46 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-server.get("/signup", (req, res) => {
-  console.log("we");
-});
-
 server.post("/signup", async (req, res) => {
   let exist = await User.findOne({ email: req.body.email });
   let hashpw = await bcrypt.hash(req.body.pwd, 10);
+  if (exist) {
+    res.status(400).json({ message: "user already exists" });
+  }
   if (!exist) {
     await User.create({
       username: req.body.username,
       email: req.body.email,
       password: hashpw,
     });
+    const token = jwt.sign({ email: req.body.email }, JWT_SECRET);
+    res
+      .cookie("user", token, { httpOnly: false })
+      .redirect("http://localhost:5173/");
   }
-
-  res.send("hi");
 });
 
+server.post("/login", async (req, res) => {
+  let exist = await User.findOne({ email: req.body.email });
+
+  if (!exist) {
+    res.status(400).json({ message: "email id not registered " });
+  }
+  if (exist) {
+    if (await bcrypt.compare(req.body.pwd, exist.password)) {
+      const token = jwt.sign({ email: exist.email }, JWT_SECRET);
+      res
+        .cookie("user", token, { httpOnly: false })
+        .redirect("http://localhost:5173/");
+    } else {
+      res.status(400).json({ message: "wrong password" });
+    }
+  }
+});
+
+server.get("/language", async (req, res) => {
+  console.log("hmm done");
+});
 const PORT = 8001;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
