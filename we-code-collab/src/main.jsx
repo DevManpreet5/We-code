@@ -7,7 +7,7 @@ import Home from "./components/Home.jsx";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
 import Codeeditor from "./components/Codeeditor.jsx";
-import Languagemenu from "./components/Menubar.jsx";
+import Languagemenu from "./components/Languagemenu.jsx";
 import { CookiesProvider } from "react-cookie";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

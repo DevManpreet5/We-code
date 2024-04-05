@@ -1,11 +1,11 @@
-const { createProxyMiddleware } = require("http-proxy-middleware");
+import { createProxyMiddleware } from "http-proxy-middleware";
 
-module.exports = function (app) {
+export default function setupProxy(app) {
   app.use(
-    "/api",
+    "/language",
     createProxyMiddleware({
-      target: "http://localhost:8001", // Assuming your Express server is running on port 8001
+      target: "http://localhost:8001",
       changeOrigin: true,
     })
   );
-};
+}

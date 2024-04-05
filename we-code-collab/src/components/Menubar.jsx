@@ -33,6 +33,7 @@ export default function Menubar() {
           <Fluid />
         </EffectComposer>
       </Canvas>
+
       <div className="">
         <Button
           className=" px-96"

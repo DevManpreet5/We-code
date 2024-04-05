@@ -10,12 +10,16 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/snippets/python";
 import "ace-builds/src-noconflict/snippets/java";
 import "ace-builds/src-noconflict/snippets/javascript";
+import { useNavigate } from "react-router-dom";
 
 const CodeEditor = () => {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const { lang, id } = useParams();
   const [loading, setLoading] = useState(false);
+
+  const [response, setResponse] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     let isMounted = true;
@@ -73,6 +77,23 @@ const CodeEditor = () => {
     };
   }, [code, lang, loading]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://localhost:8001/code/:language/:id", {
+        method: "GET",
+        credentials: "include",
+      });
+      const data = await res.json();
+      console.log(data);
+
+      if (data.email == "notlogginedin") {
+        navigate("/login", { replace: true });
+      }
+    };
+
+    fetchData();
+  }, [navigate]);
+
   const onChange = (newValue) => {
     setCode(newValue);
   };
@@ -103,11 +124,15 @@ const CodeEditor = () => {
           </div>
           <div className="flex flex-col mt-5 px-2 gap-3">
             <div className="flex gap-3  items-center  text-black">
-              <div className="h-8 w-8  rounded-full bg-green-100"></div>
+              <div className="h-8 w-8  rounded-full bg-green-100">
+                <img src="https://avatar.iran.liara.run/username?username=Manpreet+"></img>
+              </div>
               <div>Manpreet singh</div>
             </div>
             <div className="flex gap-3  items-center  text-black">
-              <div className="h-8 w-8  rounded-full bg-green-100"></div>
+              <div className="h-8 w-8  rounded-full bg-green-100">
+                <img src="https://avatar.iran.liara.run/username?username=Mnapreet+singh"></img>
+              </div>
               <div>Manpreet </div>
             </div>
           </div>
